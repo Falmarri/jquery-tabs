@@ -1,0 +1,217 @@
+<ecs:template location="/skins/base.html">
+    <ecs:fragment name="CONTAINER_CLASS">frame</ecs:fragment>
+	<ecs:fragment name="CONTAINER_ID">admin</ecs:fragment>
+	<ecs:fragment name="JS">
+		<link rel="stylesheet"
+			href="%%CONTEXT_PATH%%/ecs/content/admin/css/drag-drop-folder-tree.css"
+			type="text/css"></link>
+		<link rel="stylesheet"
+			href="%%CONTEXT_PATH%%/ecs/content/admin/css/context-menu.css"
+			type="text/css"></link>
+		<link rel="stylesheet" href="/css/console.css" type="text/css"></link>
+		<link rel="stylesheet" href="/ecs/jquery/css/jquery.clockpick.1.2.7.css" type="text/css" />
+		<link rel="stylesheet" href="/ecs/jquery/css/jquery.datepick.css" type="text/css" />
+		<link rel="stylesheet" href="/css/adminTabs.css" type="text/css" />
+		<style type="text/css">
+@import url(%%CONTEXT_PATH%%/ecs/sharedUI/Calendar/calendar-win2k-1.css)
+	;
+
+	
+</style>
+
+		<script type='text/javascript' src="/js/adminTabs.js"></script>
+		
+		<script type="text/javascript" src="https://raw.github.com/andyet/ICanHaz.js/master/ICanHaz.js"></script>
+		
+		<script type="text/javascript" src="/js/jquery.admintabs.js"></script>
+		
+		<script>
+		var menuData = {
+				
+				id : '#adminTabs',
+				tabs : [
+				            {
+					        	title  : 'Tab',
+					        	url    : '',
+					        	hash   : '#',
+					        	id     : 'evse-302',
+
+				        	
+				             },
+				             {
+	                            title  : 'Tab2',
+	                            url    : '',
+	                            hash   : '#',
+	                            id     : 'evse-304'
+		                            
+		                     }
+
+				        ],
+				        
+			    close_all: 
+				    {
+                        title   :   'Close All',
+                        onClose :   ''
+                        
+                        
+                    }
+
+				
+		}
+
+		</script>
+		
+		<script id="menuView" type="text/html">
+
+        <div id='{{id}}'>
+        <ul>
+        {{#tabs}}
+          {{>tab}}
+        {{/tabs}}
+        </ul>
+        {{#close_all}}
+            <span>
+            <a href='{{onClose}}'>{{title}}</a>
+            <span>
+        {{/close_all}}
+        </div>
+
+        </script>
+		
+
+		<script id="tabView" class='partial' type="text/html">
+        
+         <li id='{{id}}' class='{{class}}'>
+            <span style='inline-block' class='handle'> &#10500; </span>
+            <a href='{{url}}{{hash}}'>{{title}}</a>
+            <a href='#' class='tabClose'> <img src='/ecs/content/images/close.png'/></a>
+        </li>
+        
+        </script>
+		
+		
+		<script type="text/javascript">
+		
+		
+
+		
+		var menuStructure = eval($.cookie('tab.menu.data'));
+ 	    if( menuStructure == undefined ) {
+             menuStructure = [];
+        }
+	$(document)
+			.ready(
+					function() {
+						
+						$.setupTabs('#tabMenu', 'menuView');
+						
+
+						
+						
+// 					      $.registerTab();
+// 					      return;
+// 						$('#tabTmpl').tmpl(null , {tab: menuStructure}).appendTo("#tabMenu");
+
+// 						$('.tab-cont > ul').Tab({});
+						
+						
+// 						$('#tabMenu').delegate('a.tabClose', 'click', function (event){
+							
+// 							var i = $.tmplItem(this);
+
+// 							var isActive = false;
+// 							for(x = 0; x < menuStructure.length; x++){
+// 								if(menuStructure[x]){
+// 									if( menuStructure[x].xformid == $(this).parent().attr("xformid") && menuStructure[x].active == true){
+// 										isActive = true;
+// 									}
+// 								}
+// 							}
+// 							unregisterTabMenu($(this).parent().attr("id"));
+							
+// 							$("#tabMenu").empty();
+// 							$('#tabTmpl').tmpl(null , {tab: menuStructure}).appendTo("#tabMenu");
+// 							event.preventDefault();
+							
+// 							if( $(this).parent().attr("xformid") != undefined){
+								
+// 								$.ajax({
+// 									type : 'POST',
+// 									url : '/xform.do',
+// 									data : {'xf_event':'close','xf_formId':$(this).parent().attr("xformid"),'runner':document.FormX.runner.value,'xf_durl':'/evsecheck.txt'},
+// 									error : function(obj, message,error) {
+// 									},		
+// 									success : function(data) {
+// 										if( isActive ){
+// 											var url = '/console.html';
+// 											if( menuStructure.length != 0 ){
+// 												url = menuStructure[menuStructure.length-1].url;
+// 											}
+// 											if( url == ''){
+// 												url  = '/console.html';
+// 											}
+// 											location.href = url;
+// 										}
+// 									}
+// 								});
+// 							}
+							
+// 						});
+						
+						$('#tabMenu').delegate('.prev', 'click', function(event){
+							
+							var u = $('#tabMenu .tab-cont > ul');
+							
+							if (parseFloat(u.css('left')) >= 0){
+	                            u.animate({
+	                                left: '0'
+	                            }, 'fast');
+							}else {
+								u.animate({
+                                    left: '+=50'
+                                }, 'fast');
+							}
+							event.preventDefault();
+
+						});
+						
+	                      $('#tabMenu').delegate('.next', 'click', function(event){
+	                            $('#tabMenu .tab-cont > ul').animate({
+	                                left: '-=50'
+	                            }, 'fast');
+	                            
+	                            event.preventDefault();
+	                        });
+
+					});
+</script>
+
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/content/admin/js/listctrl.js"></script>
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/content/report/javascript/ColorPicker.js"></script>
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/sharedUI/Calendar/calendar.js"></SCRIPT>
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/sharedUI/Calendar/lang/calendar-en.js"></SCRIPT>
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/sharedUI/Calendar/calendar-setup.js"></SCRIPT>
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/content/admin/js/context-menu.js"></script>
+		<!-- IMPORTANT! INCLUDE THE context-menu.js FILE BEFORE drag-drop-folder-tree.js -->
+		<script type="text/javascript"
+			src="%%CONTEXT_PATH%%/ecs/content/admin/js/drag-drop-folder-tree.js"></script>
+		<script type="text/javascript"
+			src="/content/javascript/xform-server.js"></script>
+		<script type="text/javascript" src="/content/javascript/xform-ctrl.js"></script>
+		<script type="text/javascript"
+			src="/ecs/jquery/lib/jquery.expandable.min.js"></script>
+		<script type="text/javascript"
+			src="/ecs/jquery/lib/jquery.clockpick.1.2.7.min.js"></script>
+		<script type="text/javascript"
+			src="/ecs/jquery/lib/jquery.datepick.min.js"></script>
+		<script type="text/javascript"
+			src="/ecs/jquery/lib/jquery.tablednd_0_5.js"></script>
+		<script type="text/javascript" src="/ecs/ckeditor/ckeditor.js"></script>
+	</ecs:fragment>
+</ecs:template>
