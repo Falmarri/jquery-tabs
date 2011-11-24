@@ -45,7 +45,7 @@
 	
 	function getMenu(loc){
 		try{
-			return JSON.parse(localStorage ? localStorage.getItem(loc) : $.cookie(loc)) || function(){throw 1;};
+			return JSON.parse(localStorage ? localStorage.getItem(loc) : $.cookie(loc)) || (function(){throw 1;})();
 		}catch(e){
 			localStorage.removeItem(loc);
 			return {
